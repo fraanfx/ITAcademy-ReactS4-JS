@@ -48,29 +48,28 @@ function moviesAverageByCategory(array,category) {
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes(array) {
-//   console.log("INIT EX 7")
-//   //console.log(array)
-//     //let convertHours = Math.floor(hours*60);
-    
-//     //const getFilm = array.filter(arr => arr.duration == '1h 28m')
-//     //Devolver array duración
-//     const getHour = array.map(arr => arr.duration)
-//     console.log(getHour)
-//     console.log('ejecuta')
-//     let duration = '6h 20m'
-//     //const modifyTimes = getHour.map(arr =>  arr.duration.split(' '))
-//     //Pasar horas y minutos
-//     let [hour, minutes] = duration.map(time => time.split(' '));
-//     let [hour, minutes] = getHour.map(time => time.split(' '));
-//     //const allMin = ((hour.slice(0, -1))*60)+(minutes.slice(0, -1)*1)
+  console.log("Init ex7")
+    const hoursToMinutes = array.map((movie) => { //iteramos todo el array y definos cada objeto como pelicula
+      
+      const spliting = movie.duration.includes(' ') //Si la duración de la peli incluye un espacio en blanco..
+      ? movie.duration.split(' ') //Cortamos por allí en casi de que incluya h y m
+      :[movie.duration]; //Devolvemos un array con toda la duration
 
-//       (time.length-1 >= 3) ? return minutes : (return hoursToMinutes, minutes)
-
-//     console.log(hour+'<>'+minutes)
-//    // console.log(allMin)
+      let movieObj;
     
-//     console.log("FIN EX 7")
-//     return(allMin)
+      const [hours, minutes] = spliting; //Separamos horas y minutos.
+      console.log(`esto es  h ${hours} min ${minutes} `)
+      const hourToMinutes = Math.round(hours.match(/\d/g)) * 60; //filtramos los números /d == filtrar numeros, /g todos
+      
+      const minutesClean = Math.round(minutes?.match(/\d/g).join(''))|| 0; //si solo dura horas devolvemos 0min
+      const allInMinutes = hourToMinutes + minutesClean; //SUmamos horas y minutos
+      movieObj = { duration: allInMinutes }; //Creamos nuevo objeto con la nueva prop
+      
+      return {...movie, ...movieObj}; //Devolvemos Obj + movieObj(Duracion añadida) devolver todo con spread
+    
+    });
+    console.log(hoursToMinutes)
+    return hoursToMinutes;
   }
 
 // Exercise 8: Get the best film of a year
